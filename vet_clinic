@@ -1,0 +1,12 @@
+vet_clinic/
+  venv/
+  app.py
+  pages/
+    1_Clientes.py
+    2_Mascotas.py
+    3_Citas.py
+    4_Analitica.py
+  data/
+    owners.csv
+    pets.csv
+    appointments.csv
