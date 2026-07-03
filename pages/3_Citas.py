@@ -13,7 +13,6 @@ repo = get_repository()
 pets_df = repo.list_pets()
 appointments_df = repo.list_appointments()
 
-# Sin mascotas no hay citas
 if pets_df.empty:
     st.warning("No hay mascotas registradas. Ve a **Mascotas** y añade alguna primero.")
 else:
@@ -55,7 +54,6 @@ else:
         except ValueError as exc:
             st.error(str(exc))
 
-# Listado de citas
 st.subheader("Listado de citas")
 
 if appointments_df.empty:

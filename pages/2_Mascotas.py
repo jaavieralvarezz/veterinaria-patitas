@@ -12,7 +12,6 @@ repo = get_repository()
 owners_df = repo.list_owners()
 pets_df = repo.list_pets()
 
-# Si no hay propietarios, no tiene sentido crear mascotas
 if owners_df.empty:
     st.warning("No hay propietarios registrados. Ve primero a **Clientes** y añade alguno.")
 else:
@@ -45,7 +44,6 @@ else:
                 f"Mascota '{nombre_mascota}' registrada para el propietario seleccionado."
             )
 
-# Listado de mascotas
 st.subheader("Listado de mascotas")
 
 if pets_df.empty:

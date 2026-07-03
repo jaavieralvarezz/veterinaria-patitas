@@ -4,8 +4,8 @@ from patitas.database import database_mode
 
 st.set_page_config(
     page_title="Clínica veterinaria",
-    page_icon="🐶",   # ← icono válido
-    layout="wide"
+    page_icon="🐶",
+    layout="wide",
 )
 
 st.title("Clínica Veterinaria Patitas 🐶")
@@ -20,7 +20,7 @@ st.markdown(
     - **Mascotas**
     - **Citas**
     - **Analítica**
-    
+
     Hola a todos los padres y madres de algun animal. En primer lugar queremos dirigirnos a vosotros de una manera cercana.
     Ya que cuando de una mascota se habla tratamos de familia. Y eso es lo que queremos ser para vosotros.
     Hemos desarrollado nuestra primera pagina web, para que en cuanto al bienestar de vuestas mascotas os sintais seguros al 100%.

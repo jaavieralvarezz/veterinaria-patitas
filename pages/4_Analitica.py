@@ -1,5 +1,5 @@
-import streamlit as st
 import altair as alt
+import streamlit as st
 
 from patitas.repository import get_repository
 
@@ -14,11 +14,6 @@ owners_df = repo.list_owners()
 pets_df = repo.list_pets()
 appointments_df = repo.list_appointments()
 
-
-# =============================
-# TARJETAS RESUMEN
-# =============================
-
 st.subheader("Resumen general")
 
 col1, col2, col3 = st.columns(3)
@@ -26,11 +21,6 @@ col1, col2, col3 = st.columns(3)
 col1.metric("Clientes registrados", len(owners_df))
 col2.metric("Mascotas registradas", len(pets_df))
 col3.metric("Citas programadas", len(appointments_df))
-
-
-# =============================
-# GRÁFICO: MASCOTAS POR TIPO
-# =============================
 
 st.subheader("🐾 Mascotas por tipo")
 
@@ -45,17 +35,12 @@ else:
         .mark_bar(color="#4C9AFF")
         .encode(
             x=alt.X("Tipo:N", title="Tipo de mascota"),
-            y=alt.Y("Cantidad:Q", title="Número de mascotas")
+            y=alt.Y("Cantidad:Q", title="Número de mascotas"),
         )
         .properties(height=300)
     )
 
     st.altair_chart(chart1, width="stretch")
-
-
-# =============================
-# GRÁFICO: CITAS POR FECHA
-# =============================
 
 st.subheader("📅 Citas por fecha")
 
@@ -70,7 +55,7 @@ else:
         .mark_bar(color="#FF6F61")
         .encode(
             x=alt.X("Fecha:N", title="Fecha"),
-            y=alt.Y("Cantidad:Q", title="Número de citas")
+            y=alt.Y("Cantidad:Q", title="Número de citas"),
         )
         .properties(height=300)
     )
