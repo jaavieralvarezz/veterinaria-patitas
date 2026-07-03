@@ -6,3 +6,7 @@ data/*.db
 .env
 .DS_Store
 .streamlit/secrets.toml
+paquetes_nuevos/
+paquete_para_anadir/
+paquete_para_anadir_base_datos_y_tests.zip
+.trunk/
