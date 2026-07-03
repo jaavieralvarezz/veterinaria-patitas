@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 import pandas as pd
-from sqlalchemy import func, insert, select
+from sqlalchemy import func, insert, select, text
 from sqlalchemy.engine import Engine
 
 from patitas.database import (
@@ -29,6 +29,7 @@ class ClinicRepository:
         init_db(self.engine)
         if seed_from_csv:
             self.seed_from_csv_if_empty(DATA_DIR)
+        self.sync_id_sequences()
 
     def _to_dataframe(self, rows: list[dict], columns: list[str]) -> pd.DataFrame:
         return pd.DataFrame(rows, columns=columns)
@@ -143,8 +144,33 @@ class ClinicRepository:
         with self.engine.begin() as conn:
             conn.execute(insert(table), records)
 
+    def sync_id_sequences(self) -> None:
+        for table in (owners, pets, appointments):
+            self._sync_id_sequence(table.name)
+
+    def _sync_id_sequence(self, table_name: str) -> None:
+        dialect = self.engine.dialect.name
+
+        with self.engine.begin() as conn:
+            max_id = conn.execute(
+                text(f"select coalesce(max(id), 0) from {table_name}")
+            ).scalar_one()
+            if max_id == 0:
+                return
+
+            if dialect == "postgresql":
+                conn.execute(
+                    text(
+                        "select setval("
+                        "pg_get_serial_sequence(:table_name, 'id'), "
+                        ":max_id, "
+                        "true"
+                        ")"
+                    ),
+                    {"table_name": table_name, "max_id": int(max_id)},
+                )
+
 
 @lru_cache(maxsize=1)
 def get_repository() -> ClinicRepository:
     return ClinicRepository(seed_from_csv=True)
-
