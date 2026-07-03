@@ -1,0 +1,66 @@
+# Clinica Veterinaria Patitas
+
+Aplicacion web hecha con Streamlit para gestionar una clinica veterinaria:
+
+- Clientes o propietarios.
+- Mascotas asociadas a un propietario.
+- Citas con fecha, hora, mascota, propietario y motivo.
+- Panel de analitica con resumen y graficos.
+
+## Cambio importante
+
+Antes los datos se guardaban en ficheros CSV dentro de `data/`.
+Ahora la aplicacion usa una base de datos SQL mediante SQLAlchemy.
+
+La aplicacion lee la variable `DATABASE_URL`:
+
+- Si `DATABASE_URL` apunta a PostgreSQL, los datos se guardan en una base de datos en la nube.
+- Si no existe `DATABASE_URL`, usa SQLite local en `data/vet_clinic.db` para poder probar el proyecto en el ordenador.
+
+Esto permite ensenar el proyecto localmente y, al mismo tiempo, cumplir el requisito de guardar los datos en la nube cuando se despliega.
+
+## Como usar base de datos en la nube
+
+1. Crear una base de datos PostgreSQL en un proveedor cloud como Neon, Supabase, Railway o Render.
+2. Copiar la cadena de conexion.
+3. Configurar la variable de entorno:
+
+```bash
+export DATABASE_URL="postgresql://usuario:password@host:5432/veterinaria_patitas"
+```
+
+4. Ejecutar la aplicacion:
+
+```bash
+streamlit run app.py
+```
+
+Al arrancar, la aplicacion crea automaticamente las tablas `owners`, `pets` y `appointments` si no existen.
+
+## Instalacion
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Ejecutar la aplicacion
+
+```bash
+streamlit run app.py
+```
+
+## Ejecutar los tests
+
+```bash
+pytest
+```
+
+Los tests comprueban:
+
+- Que se pueden guardar y leer clientes.
+- Que una mascota queda asociada a su propietario.
+- Que las citas se guardan correctamente.
+- Que se importan los CSV antiguos si la base de datos esta vacia.
+- Que las validaciones de citas funcionan: motivo obligatorio, no domingos y horario de 09:00 a 21:00.
