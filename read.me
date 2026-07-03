@@ -57,6 +57,52 @@ streamlit run app.py
 pytest
 ```
 
+## Comandos rapidos para copiar
+
+Desde el ordenador donde esta este proyecto:
+
+```bash
+cd /Users/javieralvarez/Downloads/veterinaria-patitas-main
+source .venv/bin/activate
+.venv/bin/streamlit run app.py
+```
+
+Si Streamlit abre otro puerto, usar el enlace que salga en la terminal, por ejemplo:
+
+```text
+http://localhost:8501
+http://localhost:8502
+http://localhost:8503
+```
+
+Para ejecutar los tests:
+
+```bash
+cd /Users/javieralvarez/Downloads/veterinaria-patitas-main
+source .venv/bin/activate
+python -m pytest -q
+```
+
+Resultado esperado:
+
+```text
+8 passed
+```
+
+Para comprobar que la app esta usando Supabase/PostgreSQL, mirar la barra lateral de la aplicacion. Debe aparecer:
+
+```text
+Datos: PostgreSQL en la nube
+```
+
+La conexion a Supabase se guarda en:
+
+```text
+.streamlit/secrets.toml
+```
+
+Ese archivo no se sube a GitHub porque contiene la contrasena de la base de datos.
+
 Los tests comprueban:
 
 - Que se pueden guardar y leer clientes.
